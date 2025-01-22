@@ -166,10 +166,11 @@ class RedisIndexedSessionRepositoryITests extends AbstractRedisITests {
 		Long sessionKeyExpire = this.redis.getExpire("RedisIndexedSessionRepositoryITests:sessions:" + toSave.getId(),
 				TimeUnit.SECONDS);
 		Long shadowKeyExpire = this.redis
-				.getExpire("RedisIndexedSessionRepositoryITests:sessions:expires:" + toSave.getId(), TimeUnit.SECONDS);
+			.getExpire("RedisIndexedSessionRepositoryITests:sessions:expires:" + toSave.getId(), TimeUnit.SECONDS);
 		long differenceInSeconds = sessionKeyExpire - shadowKeyExpire;
 		assertThat(differenceInSeconds).isEqualTo(0);
 	}
+
 	@Test
 	void putAllOnSingleAttrDoesNotRemoveOld() {
 		RedisSession toSave = this.repository.createSession();

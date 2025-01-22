@@ -930,8 +930,7 @@ public class RedisIndexedSessionRepository
 			createShadowKey(sessionExpireInSeconds);
 
 			long extendedSessionExpiration = sessionExpireInSeconds >= 0
-					? sessionExpireInSeconds + TimeUnit.MINUTES.toSeconds(5)
-					: sessionExpireInSeconds;
+					? sessionExpireInSeconds + TimeUnit.MINUTES.toSeconds(5) : sessionExpireInSeconds;
 
 			RedisIndexedSessionRepository.this.sessionRedisOperations.boundHashOps(getSessionKey(getId()))
 				.expire(extendedSessionExpiration, TimeUnit.SECONDS);
