@@ -929,9 +929,12 @@ public class RedisIndexedSessionRepository
 
 			createShadowKey(sessionExpireInSeconds);
 
-			long fiveMinutesAfterExpires = sessionExpireInSeconds + TimeUnit.MINUTES.toSeconds(5);
+			long extendedSessionExpiration = sessionExpireInSeconds >= 0
+					? sessionExpireInSeconds + TimeUnit.MINUTES.toSeconds(5)
+					: sessionExpireInSeconds;
+
 			RedisIndexedSessionRepository.this.sessionRedisOperations.boundHashOps(getSessionKey(getId()))
-				.expire(fiveMinutesAfterExpires, TimeUnit.SECONDS);
+				.expire(extendedSessionExpiration, TimeUnit.SECONDS);
 
 			RedisIndexedSessionRepository.this.expirationStore.save(this);
 			this.delta = new HashMap<>(this.delta.size());
