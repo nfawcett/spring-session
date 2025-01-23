@@ -282,7 +282,7 @@ class RedisIndexedSessionRepositoryTests {
 
 		this.redisRepository.save(session);
 
-		verify(this.boundHashOperations).expire(-1, TimeUnit.SECONDS);
+		verify(this.boundHashOperations, never()).expire(-1, TimeUnit.SECONDS);
 	}
 
 	@Test

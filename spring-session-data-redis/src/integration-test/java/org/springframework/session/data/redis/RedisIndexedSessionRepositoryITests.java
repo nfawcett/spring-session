@@ -167,8 +167,8 @@ class RedisIndexedSessionRepositoryITests extends AbstractRedisITests {
 				TimeUnit.SECONDS);
 		Long shadowKeyExpire = this.redis
 			.getExpire("RedisIndexedSessionRepositoryITests:sessions:expires:" + toSave.getId(), TimeUnit.SECONDS);
-		long differenceInSeconds = sessionKeyExpire - shadowKeyExpire;
-		assertThat(differenceInSeconds).isEqualTo(0);
+		assertThat(sessionKeyExpire).isEqualTo(-1);
+		assertThat(shadowKeyExpire).isEqualTo(-2);
 	}
 
 	@Test
